@@ -16,6 +16,10 @@ jobs:
     name: Build and Deploy Job
     steps:
       - uses: actions/checkout@v2
+      - name: Create config file
+        run: 'echo "$SECRETS" > config\secrets.json'
+        env:
+          SECRETS: ${{ secrets.CONFIG }}
       - uses: actions/setup-node@v2
         with:
           node-version: "12"
