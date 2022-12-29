@@ -17,7 +17,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Create config file
-        run: 'echo "$SECRETS" > config\secrets.json'
+        run: 'echo "$SECRETS" > config/secrets.json'
         env:
           SECRETS: ${{ secrets.CONFIG }}
       - uses: actions/setup-node@v2
