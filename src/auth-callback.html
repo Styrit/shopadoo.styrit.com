@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <title></title>
+</head>
+
+<body>
+    <script>
+        console.log("auth-callback.html");
+        // for popup and for iframe respectively
+        // todo: https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage
+        var authResponse = (window.location.search + window.location.hash).substr(1);
+        (window.opener || window.parent).postMessage(authResponse, "*");
+        window.close();
+    </script>
+</body>
+
+</html>

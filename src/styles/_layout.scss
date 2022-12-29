@@ -1,0 +1,118 @@
+.web-background {
+    max-width: $webWith;
+    margin: 0 auto;
+
+    app-bar {
+        max-width: $webWith;
+    }
+
+    @media (min-width: $webWith) {
+        background-image: url("../static/images/background/17195330_ml.jpg");
+        background-repeat: repeat-x;
+        background-position: 68% bottom;
+        background-color: #c4d68c !important;
+    }
+}
+
+app-bar {
+    @media (min-width: $webWith) {
+        .second-items-container {
+            left: initial !important;
+        }
+    }
+}
+
+.page-host {
+    height: 100%;
+    background-color: white;
+
+    // &.phone {
+    //     .content {
+    //         // padding-top: 10px; // default: 18
+    //         padding-left: $phonePadding;
+    //         padding-right: $phonePadding;
+    //     }
+    //     .listView {
+    //         .win-container {
+    //             .item {
+    //                 padding-left: $phonePadding - 4 !important;
+    //             }
+    //         }
+    //     }
+    // }
+    // https://jsfiddle.net/MadLittleMods/LmYay/
+    .fullHeight {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        -ms-flex-flow: column;
+        -webkit-flex-flow: column;
+        flex-flow: column;
+        -ms-flex-direction: column;
+        -webkit-flex-direction: column;
+        flex-direction: column;
+
+        >div {
+            flex: 0 0 auto;
+        }
+
+        .flex {
+            -ms-flex: 1 1 auto;
+            -webkit-flex: 1 1 auto;
+            flex: 1 1 auto;
+            overflow: hidden;
+            // for IE
+            //width: 100%;
+        }
+
+        .content {
+            &.scroll {
+                flex: 0 1 auto;
+            }
+        }
+    }
+
+    .content {
+        padding: 5px 10px 5px 10px;
+
+        input.toDoItem {
+            height: auto;
+            overflow: hidden;
+        }
+
+        &.scroll {
+            overflow-y: auto;
+            // assuming .scroll is a full-size content to the bottom of the window            
+            // works only in chrome - workaround is to add a :after content
+            // padding-bottom: 20px;
+        }
+
+        // padding-bottom workaround
+        // http://stackoverflow.com/questions/20624938/padding-bottom-is-ignored-in-firefox-and-ie-on-overflowing-elements-with-no-cont
+        &.scroll:after {
+            content: "";
+            height: 15px;
+            display: block;
+        }
+
+        .margin-top {
+            margin-top: 12px;
+        }
+    }
+
+    .appbar {
+        margin-bottom: 48px;
+    }
+
+    .appbar-min {
+        margin-bottom: 24px;
+    }
+}
+
+app-bar {
+    display: block;
+    position: fixed;
+    position: -ms-device-fixed;
+    bottom: 0;
+    width: 100%;
+}

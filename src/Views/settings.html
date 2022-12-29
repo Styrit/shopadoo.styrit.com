@@ -1,0 +1,79 @@
+<template>
+	<div class="content scroll">
+
+		<h1>Settings</h1>
+
+		<p class="info" if.bind="isUnsupportedBrowser">
+			Internet Explorer is not supported. Please use a modern Browser
+			like Chrome, Opera, Firefox or Edge.
+		</p>
+
+		<div style="margin-top:15px">
+
+			<h4>${settingsService.storageProvider.name}</h4>
+
+			<p show.bind="!settingsService.storageProvider.authService.loggedIn">To enable synchronization and upload
+				changes to shared lists, you have to log in.</p>
+
+			<button show.bind="!settingsService.storageProvider.authService.loggedIn" click.trigger="login()">
+				<span class="icon icon-contact"></span>
+				Login</button>
+			<div show.bind="settingsService.storageProvider.authService.loggedIn">
+				<p show.bind="settingsService.storageProvider.authService.loggedIn">Logged in to
+					${settingsService.storageProvider.name} -
+					<a href="#" click.trigger="logout()">logout</a>
+				</p>
+			</div>
+
+			<p>It is good practice to backup your lists some times.</p>
+			<button disabled.bind="isLoading || !settingsService.storageProvider.authService.loggedIn" click.trigger="createBackup()">
+				<span class="icon icon-upload"></span>
+				Create Backup</button>
+			<button disabled.bind="isLoading || !(settingsService.storageProvider.authService.loggedIn && settingsService.storageProvider.driveService.hasBackup)"
+				click.trigger="restoreBackup()">
+				<span class="icon icon-download"></span>
+				Restore Backup</button>
+			<p show.bind="settingsService.storageProvider.driveService.lastAutoBackupDate">Last backup date:
+				${settingsService.storageProvider.driveService.lastAutoBackupDate} </p>
+
+			<div if.bind="hasStyritShoppingListData && settingsService.storageProvider.id == 'OneDrive'">
+				<p>There is a backup from the app 'Styrit Shopping List'<br>
+					<a click.trigger="importStyritShoppingListBackup()">Import this data</a>
+				</p>
+			</div>
+			<p></p>
+
+			<div class="checkbox" style="margin-top:20px">
+				<label>
+                    <input type="checkbox" 
+						checked.bind="settingsService.settings.autoBackup"> Automatic Backup                    
+                </label> This enables automatic backups of your lists. A login is required. More infos
+				<a href="http://styrit.com/shopadoo/backup">here</a>.
+			</div>
+
+			<div show.bind="settingsService.storageProvider.syncSupport" class="checkbox" style="margin-top:20px">
+				<label class.bind="!settingsService.storageProvider.authService.loggedIn && !enableSync ? 'disabled' : ''">
+                    <input type="checkbox" disabled.bind="!settingsService.storageProvider.authService.loggedIn && !enableSync" 
+						checked.bind="enableSync"> Enable Synchronization                    
+                </label> This option synchronies your list changes through multiple devices.
+			</div>
+
+			<div class="form-group" style="margin-top:15px" show.bind="settingsService.storageProviderList.length > 1">
+				<label>Sync/Storage Provider</label>
+				<select value.bind="settingsService.storageProvider">
+                    <option repeat.for="prov of settingsService.storageProviderList" model.bind="prov">${prov.name}</option>
+                </select>
+			</div>
+
+			<p show.bind="!settingsService.storageProvider.syncSupport"><b>Please note: </b>
+				Synchronization is not available with the selected '${settingsService.storageProvider.name}' storage
+				provider.</p>
+
+		</div>
+
+		<div if.bind="isDevMode">
+			<hr />
+			<button click.trigger="test()">Test</button>
+		</div>
+	</div>
+</template>

@@ -1,0 +1,13 @@
+<template>
+    <ux-dialog>
+        <ux-dialog-body>
+            <h2>${title}</h2>
+            <p>${text}</p>
+        </ux-dialog-body>
+
+        <ux-dialog-footer>
+            <button textcontent.one-time="okButtonText" click.trigger="dialogController.ok()">Ok</button>
+            <button if.bind="showCancelButton" textcontent.one-time="cancelButtonText" click.trigger="dialogController.cancel()">Cancel</button>
+        </ux-dialog-footer>
+    </ux-dialog>
+</template>

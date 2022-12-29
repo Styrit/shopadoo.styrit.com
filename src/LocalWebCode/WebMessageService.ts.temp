@@ -1,0 +1,64 @@
+import { autoinject, LogManager } from 'aurelia-framework'
+import { Logger } from 'aurelia-logging'
+
+
+interface IWebMessage {
+
+    message: string
+    clientInstanceId: string
+
+}
+
+
+const WebMessageServiceKey = 'WebMessage'
+
+
+export class WebMessageService {
+
+    private logger: Logger = LogManager.getLogger('WebMessageService')
+    private isInitialized: boolean
+    private clientInstanceId: string
+
+    private onMessageReceivedEvent = new System.LiteEvent<IWebMessage>()
+    public get onMessageReceived(): System.ILiteEvent<IWebMessage> { return this.onMessageReceivedEvent }
+
+    constructor() {
+
+
+    }
+
+
+    send(message: string) {
+
+        localStorage.setItem(WebMessageServiceKey, JSON.stringify({ clientInstanceId: this.clientInstanceId, message: message } as IWebMessage))
+
+    }
+
+
+    init(clientInstanceId: string) {
+
+        if (!this.isInitialized) {
+            this.isInitialized = true
+            this.clientInstanceId = clientInstanceId
+
+            window.addEventListener('storage', event => {
+
+                this.logger.info('Storage changed', event)
+
+                if (event.key == WebMessageServiceKey) {
+
+                    let message = JSON.parse(event.newValue) as IWebMessage
+                    if (message) {
+                        this.onMessageReceivedEvent.trigger(message)
+                    }
+
+                }
+
+            })
+
+        }
+
+    }
+
+
+}

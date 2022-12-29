@@ -1,0 +1,78 @@
+// standard support:
+// not used anywhere
+// https://github.com/winjs/winjs/tree/master/src/fonts
+span.glyphicon {
+    font-family: "Symbols";
+    padding-right: 4px;
+    vertical-align: text-bottom;
+    &.glyphicon-info::before {
+        content: "\E171";
+    }
+    &.glyphicon-error::before {
+        content: "\10A";
+    }
+}
+
+// supported by loading the font: 
+// https://msdn.microsoft.com/en-us/windows/uwp/style/segoe-ui-symbol-font
+// http://xtoolkit.github.io/Micon/
+// http://modernicons.io/segoe-mdl2/cheatsheet/
+span.icon {
+    font-family: 'Segoe UI Command';
+    padding: 0px 5px 0 5px;
+    vertical-align: text-bottom;
+    &.icon-share::before {
+        content: "\E8FA";
+    }
+    &.icon-add::before {
+        content: "\E109";
+    }
+    &.icon-sort::before {
+        content: "\E8CB";
+    }
+    &.icon-up::before {
+        content: "\E74A";
+    }
+    &.icon-search::before {
+        content: "\E721";
+    }
+    &.icon-contact::before {
+        content: "\E77B";
+    }
+    &.icon-upload::before {
+        content: "\E898";
+    }
+    &.icon-download::before {
+        content: "\E896";
+    }
+    &.icon-close::before {
+        content: "\E8BB";
+    }
+    &.icon-send::before {
+        content: "\E724";
+    }
+    &.icon-edit::before {
+        content: "\E70F";
+    }
+    &.icon-delete::before {
+        content: "\E74D";
+    }
+    &.icon-hamburger::before {
+        content: "\E700";
+    }
+    &.icon-back::before {
+        content: "\E72B";
+    }
+    &.icon-cancel::before {
+        content: "\E711";
+    }
+    &.icon-accept::before {
+        content: "\E8FB";
+    }
+    &.icon-redo::before {
+        content: "\E7A6";
+    }
+    &.icon-save::before {
+        content: "\E74E";
+    }
+}

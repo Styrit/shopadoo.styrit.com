@@ -1,0 +1,25 @@
+import { autoinject } from 'aurelia-framework'
+
+
+@autoinject
+export class FullHeightCustomAttribute {
+
+
+    element: HTMLElement
+
+
+    constructor(element: Element) {
+        this.element = <HTMLElement>element
+    }
+
+
+    attached() {
+        this.element.style.height = this.element.parentElement.clientHeight + 'px'
+
+        $(window).resize(() => {
+            this.element.style.height = this.element.parentElement.clientHeight + 'px'
+        })
+    }
+
+    
+}

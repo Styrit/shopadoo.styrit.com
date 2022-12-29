@@ -1,0 +1,37 @@
+<template>
+    <require from="Attributes/persist-scroll-position"></require>
+
+    <ul if.bind="loaded && items" 
+        class="list au-animate ${selectionMode ? 'selection-mode' : ''} ${itemsDraggable ? 'itemsDraggable' : ''}"
+        persist-scroll-position="target-selector: .listViewContainer">
+        <li repeat.for="item of items" class="list-item __au-animate ${item == $parent.currentItem ? 'active' : ''} ${item.selected ? 'selected' : ''}"
+            click.delegate="select(item)">
+            <div class="list-item-container">
+                <template replaceable part="item-template">
+                    <p>item</p>
+                </template>
+            </div>
+            <div class="selection-checkmark"></div>
+        </li>
+    </ul>
+
+    <ul if.bind="loaded && itemsGrouped" class="items au-animate ${selectionMode ? 'selection-mode' : ''} ${itemsDraggable ? 'itemsDraggable' : ''}">
+        <li repeat.for="group of itemsGrouped" class="group-item">
+            <template replaceable part="group-template">
+                <p>group</p>
+            </template>
+            <ul id="group-${$index}" class="list">
+                <li repeat.for="item of group.items" class="list-item __au-animate ${item == $parent.currentItem ? 'active' : ''} ${item.selected ? 'selected' : ''}"
+                    click.delegate="select(item)">
+                    <div class="list-item-container">
+                        <template replaceable part="item-template">
+                            <p>item</p>
+                        </template>
+                    </div>
+                    <div class="selection-checkmark"></div>
+                </li>
+            </ul>
+        </li>
+    </ul>
+
+</template>

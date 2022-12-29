@@ -1,0 +1,103 @@
+﻿<template>
+
+    <require from="Helper/Converter"></require>
+    <require from="Components/back-button"></require>
+    <require from="Components/app-bar"></require>
+
+    <div class="content scroll ${isInEditMode ? '' : 'appbar'}">
+        <back-button></back-button>
+        <h2 class="clearfix">${!isInEditMode ? 'Add List' : 'Edit List'}</h2>
+        <input type="text" autocomplete="off" value.bind="selectedList.name" />
+
+        <div if.bind="!isInEditMode">
+            <a href="#/ListAddShared">Add a shared list</a>
+            <br><br>
+        </div>
+
+        <div class="form-group margin-top">
+            <label for="SortList">Sorting</label>
+            <select id="SortList" value.bind="selectedList.sortType | numberToString" class="form-control">
+                <option repeat.for="sort of sortList & oneTime" value.bind="sort.key">${sort.name}</option>
+            </select>
+        </div>
+
+        <div class="checkbox">
+            <label class.bind="selectedList.sortType == sortTypeEnum.Manual ? 'disabled' : ''">
+                <input type="checkbox" disabled.bind="selectedList.sortType == sortTypeEnum.Manual" 
+                checked.bind="selectedList.showActiveItemsFirst | showActiveItemsFirst:selectedList.sortType"> Show active items first
+            </label>
+        </div>
+
+        <!--Hide this if not an UWP app-->
+        <div if.one-time="isWindowsApp" class="checkbox">
+            <label>
+                <input type="checkbox" change.trigger="pinToStart($event)" checked.bind="selectedList.pinToStart"> Pin to Start
+            </label>
+        </div>
+
+        <div class="form-group margin-top">
+            <label>Color</label>
+            <ul class="color-picker">
+                <li repeat.for="[key, color] of settingsService.colorMap & oneTime"
+                    class.bind="key == $parent.selectedList.color ? 'selected' : ''"
+                    css="background-color: ${color.hex & oneTime}" click.delegate="onColorSelect(key)">
+                </li>
+            </ul>
+        </div>
+
+        <h4 class="margin-top">Sharing</h4>
+        <div class="sharing-container">
+            <div show.bind="!settingsService.storageProvider.syncSupport">
+                <p>Sharing lists between Shopadoo users is not available with the selected
+                    '${settingsService.storageProvider.name}'
+                    storage provider. Please select a different storage provider in the settings.</p>
+            </div>
+            <div show.bind="settingsService.storageProvider.syncSupport">
+                <p class="info" if.bind="selectedList.shared">
+                    This is a shared list, other users will get your changes.
+                    <a class="win-link" href="#" click.trigger="stopSharing()">Stop sharing this list</a><br>
+                </p>
+                <p>
+                    Invite others and they can collaborate on this list.
+                </p>
+                <!--<a class="win-link" href="#" click.trigger="inviteOthers()" >Invite others</a>-->
+                <button click.trigger="inviteOthers()">
+                    <span class="icon icon-share"></span>
+                    Invite</button>
+
+            </div>
+        </div>
+
+
+        <h4 class="margin-top">Groups</h4>
+        <div class="groups-container">
+            <div class="input-group" repeat.for="group of selectedList.groups">
+                <template if.bind="group != selectedList.defaultGroup">
+                    <input type="text" class="form-control" autocomplete="off" value.bind="group.name" placeholder="Group Name">
+                    <span class="input-group-btn">
+                        <button class="move" type="button"><span class="icon icon-hamburger"></span></button>
+                    </span>
+                    <span class="input-group-btn">
+                        <button type="button" click.trigger="removeGroup(group)"><span class="icon icon-delete"></span></button>
+                    </span>
+                </template>
+            </div>
+        </div>
+        <div class="form-group" style="margin-top:8px">
+            <button id="addGroup" click.trigger="addGroup()">
+                <span class="icon icon-add"></span>
+                Add Group</button>
+        </div>
+    </div>
+
+    <app-bar if.bind="!isInEditMode">
+        <div slot="main-items">
+            <button click.trigger="appBarSave()" title="Save item">
+                <span class="icon icon-command icon-save" tabindex="-1"></span>
+                <label tabindex="-1">Save</label>
+            </button>
+        </div>
+    </app-bar>
+
+
+</template>

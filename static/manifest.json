@@ -1,0 +1,21 @@
+{
+	"name": "Shopadoo",
+	"short_name": "Shopadoo",
+	"start_url": "/",
+	"theme_color": "#296fcc",
+    "display": "standalone",
+    "background_color": "#d3d3d3",
+    "description": "A simply todo app.",
+	"icons": [
+		{
+			"src": "favicons/icon-192.png",
+			"sizes": "192x192",
+			"type": "image/png"
+		},
+		{
+			"src": "favicons/icon-512.png",
+			"sizes": "512x512",
+			"type": "image/png"
+		}
+	]	
+}

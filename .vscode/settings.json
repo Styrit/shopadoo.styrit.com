@@ -1,0 +1,11 @@
+// Place your settings in this file to overwrite default and user settings.
+{
+    // Controls the rendering size of tabs in characters. Accepted values: "auto", 2, 4, 6, etc. If set to "auto", the value will be guessed when a file is opened.
+    // "editor.tabSize": 2
+    // Configure glob patterns for excluding files and folders in searches. Inherits all glob patterns from the file.exclude setting.
+    "search.exclude": {
+        "dist": true
+    },
+    // List of tags, comma separated, that shouldn't be reformatted. 'null' defaults to all inline tags.
+    "html.format.unformatted": "a,abbr,area,audio,b,bdi,bdo,br,button,canvas,cite,code,data,datalist,del,dfn,em,embed,i,iframe,img,input,ins,kbd,keygen,label,map,mark,math,meter,noscript,object,output,progress,q,ruby,s,samp,script,select,small,span,strong,sub,sup,svg,textarea,time,u,var,video,wbr,text"
+}

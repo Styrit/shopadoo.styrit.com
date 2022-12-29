@@ -1,0 +1,52 @@
+html,
+body {
+    width: 100%;
+    height: 100%;
+    margin: 0px;
+    cursor: default;
+    -ms-scroll-translation: vertical-to-horizontal;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+html {
+    overflow: hidden;
+    direction: ltr;
+}
+
+body, select, textarea {
+    font-family: 'Segoe UI', 'Open Sans', sans-serif, 'Segoe UI Command', 'Segoe UI Emoji';
+    -ms-content-zooming: none;
+}
+
+.noselect {
+    cursor: default;
+    /* iOS Safari */
+    -webkit-touch-callout: none;
+    /* Chrome/Safari/Opera */
+    -webkit-user-select: none;
+    /* Firefox */
+    -moz-user-select: none;
+    /* IE/Edge */
+    -ms-user-select: none;
+    /* non-prefixed version, currently  not supported by any browser */
+    user-select: none;
+}
+
+.clearfix {
+    &:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+}
+
+// https://stackoverflow.com/a/45820289
+@mixin has-hover-support {
+    @media (hover: hover) and (pointer: fine) {
+        @content;
+    }
+}
+
+.is-invisible {
+    visibility: hidden !important
+    }

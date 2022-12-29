@@ -1,0 +1,75 @@
+﻿<template>
+
+    <require from="Components/back-button"></require>
+    <require from="Components/list-view"></require>
+    <require from="Components/app-bar"></require>
+
+
+    <div class="content">
+        <back-button></back-button>
+        <h2 class="clearfix list-header">${list.name}</h2>
+    </div>
+
+    <div class="flex listViewContainer appbar">
+        <list-view class="toDoList" items-grouped.bind="list.groups" selection-mode.bind="selectionMode" items-draggable.bind="itemsDraggable">
+            <template replace-part="group-template">
+                <div class="group-item-template" show.bind="list.groups.length > 1 && !(group == list.defaultGroup && !list.defaultGroup.items.length)"
+                    style.one-way="{color: settingsService.getHexColorFromKey(list.color)}">${group.name}</div>
+            </template>
+            <template replace-part="item-template">
+                <div class="list-item-template ${item.done ? 'item-done' : ''}" click.delegate="onItemClick(item)" contextmenu.delegate="onItemContextmenu(item, $event)">
+                    <p>${item.name}</p>
+                </div>
+            </template>
+        </list-view>
+    </div>
+
+    <app-bar if.bind="!selectionMode" open.bind="defaultAppBarOpen">
+        <div slot="main-items">
+            <button class="${canScrollToTop ? '' : 'hidden'}" click.trigger="defaultAppBarClick('scrollUp')" title="Scroll to top">
+                <span class="icon icon-command icon-up" tabindex="-1"></span>
+                <label tabindex="-1">To Top</label>
+            </button>
+            <button if.bind="list.showActiveItemsFirst || list.sortType == sortTypeEnum.Manual" click.trigger="defaultAppBarClick('sort')"
+                class="${itemsDraggable ? 'active' : ''}" title="Sort items">
+                <span class="icon icon-command icon-sort" tabindex="-1"></span>
+                <label tabindex="-1">Sort</label>
+            </button>
+            <button click.trigger="defaultAppBarClick('add')" title="Add item">
+                <span class="icon icon-command icon-add" tabindex="-1"></span>
+                <label tabindex="-1">Add</label>
+            </button>
+        </div>
+        <div slot="second-items">
+            <button click.trigger="defaultAppBarClick('sendTo')"><span>Send To</span></button>
+            <button click.trigger="defaultAppBarClick('selectionMode')"><span>Selection mode</span></button>
+            <button click.trigger="defaultAppBarClick('editList')"><span>Edit list</span></button>
+        </div>
+    </app-bar>
+
+    <app-bar if.bind="selectionMode" open.two-way="selectionAppBarOpen">
+        <div slot="main-items">
+            <button click.trigger="selectionAppBarClick('cancel')" title="Cancel">
+                <span class="icon icon-command icon-cancel" tabindex="-1"></span>
+                <label tabindex="-1">Cancel</label>
+            </button>
+            <button click.trigger="selectionAppBarClick('delete')" title="Delete">
+                <span class="icon icon-command icon-delete" tabindex="-1"></span>
+                <label tabindex="-1">Delete</label>
+            </button>
+            <button click.trigger="selectionAppBarClick('done')" title="Done">
+                <span class="icon icon-command icon-accept" tabindex="-1"></span>
+                <label tabindex="-1">Done</label>
+            </button>
+            <button click.trigger="selectionAppBarClick('redo')" title="Redo">
+                <span class="icon icon-command icon-redo" tabindex="-1"></span>
+                <label tabindex="-1">Redo</label>
+            </button>
+        </div>
+        <div slot="second-items">
+            <button click.trigger="selectionAppBarClick('selectInactive')"><span>Select inactive items</span></button>
+            <button click.trigger="selectionAppBarClick('selectAll')"><span>Select all items</span></button>
+        </div>
+    </app-bar>
+
+</template>

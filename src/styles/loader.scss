@@ -1,0 +1,42 @@
+@import "_variables";
+html,
+body {
+    height: 100%;
+    margin: 0;
+}
+
+body {
+    font-family: 'Segoe UI', 'Open Sans', sans-serif;
+    background-color: lightgray;
+}
+
+.splash {
+    display: block;
+    margin: 0 auto;
+    padding: 0 40px;
+    position: relative;
+    top: 50%;
+    transform: translateY(-60%);
+    text-align: center;
+    max-width: $webWith;
+    img {
+        max-width: 100%;
+    }
+    >div {
+        height: 44px;
+        #info {
+            text-align: center;
+            color: darkgray;
+            margin: 0;
+        }
+    }
+}
+
+@media (display-mode: standalone) {
+    body{
+        background-color: white;
+    }
+    .splash {
+        display: none;
+    }
+}

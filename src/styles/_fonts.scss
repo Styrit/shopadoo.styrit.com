@@ -1,0 +1,42 @@
+//// load only local if available
+
+@font-face {
+  font-family: "Segoe UI";
+  font-style: normal;
+  font-weight: normal; //400
+  src: local("Segoe UI"), local("Segoe"), local("Segoe WP");
+}
+
+@font-face {
+  font-family: "Segoe UI";
+  font-weight: 200;
+  src: local("Segoe UI Light"), local("Segoe Light"), local("Segoe WP Light");
+}
+
+@font-face {
+  font-family: "Segoe UI";
+  font-weight: 300;
+  src: local("Segoe UI Semilight"), local("Segoe Semilight"),
+    local("Segoe WP Semilight");
+}
+
+// We can't remove this font because we use it for the icons.
+// TODO: Replace font-icons by svg icons or so...
+@font-face {
+    font-family: "Segoe UI Command";
+    src: local("Segoe MDL2 Assets"), url('../fonts/Segoe_UI/segoe-mdl2-assets.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+  font-family: "Segoe UI";
+  font-weight: 500;
+  src: local("Segoe UI Semibold");
+}
+
+@font-face {
+  font-family: "Segoe UI";
+  font-weight: 600;
+  src: local("Segoe UI Bold");
+}

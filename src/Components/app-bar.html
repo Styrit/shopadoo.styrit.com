@@ -1,0 +1,18 @@
+<template>
+
+
+    <div class="app-bar-container ${open ? 'open' : ''}">
+        <div class="second-items-container">
+            <slot name="second-items"></slot>
+        </div>
+
+        <div class="main-items-container">
+            <slot name="main-items"></slot>
+            <button class="ellipsis" click.trigger="openClick()"><span></span></button>
+        </div>
+    </div>
+
+    <div if.bind="open" class="clickeater" click.trigger="openClick()"></div>
+
+
+</template>

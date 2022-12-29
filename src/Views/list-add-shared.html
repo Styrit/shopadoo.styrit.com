@@ -1,0 +1,38 @@
+﻿<template>
+
+    <require from="Helper/Converter"></require>
+    <require from="Components/back-button"></require>
+
+
+    <div class="content scroll">
+        <back-button></back-button>
+        <h2 class="clearfix">Add Shared List</h2>
+
+        <div show.bind="settingsService.storageProvider.syncSupport">
+            <div show.bind="!sharedList && !hasId">
+                <div class="form-group">
+                    <label for="url">Shared list link</label>
+                    <input id="url" autocomplete="off" type="text" value.bind="sharedUrl" />
+                </div>
+
+                <button click.trigger="findList(sharedUrl)">
+                    <span class="icon icon-search"></span>
+                    Find list</button>
+            </div>
+
+            <p innerhtml.bind="statusText"></p>
+
+            <div show.bind="sharedList">
+                <button click.trigger="addList()">
+                    <span class="icon icon-add"></span>
+                    Add list</button>
+            </div>
+        </div>
+
+        <div show.bind="!settingsService.storageProvider.syncSupport">
+            <p><b>Please note: </b>Sharing lists between Shopadoo users is not available with the selected
+                '${settingsService.storageProvider.name}'
+                storage provider. Please select a different storage provider in the settings. </p>
+        </div>
+    </div>
+</template>

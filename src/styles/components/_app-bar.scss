@@ -1,0 +1,182 @@
+$app-bar-active-color:rgb(0, 120, 215);
+.app-bar-container {
+    width: 100%;
+    min-width: 32px;
+    min-height: 48px;
+    position: relative;
+    z-index: 910;
+    display: block;
+    //bottom: 0;
+    //left: 0;
+    //right: 0;
+    transition: height .18s ease;
+    height: 48px;
+    display: flex;
+    float: right;
+    width: 100%;
+    &.open {
+        height: 60px;
+        .main-items-container {
+            button label {
+                opacity: 1;
+            }
+        }
+        .second-items-container {
+            transform: translateY(0%);
+        }
+    }
+    .main-items-container {
+        z-index: 10;
+        background-color: #e6e6e6;
+        display: flex;
+        width: 100%;
+        >div {
+            margin-left: auto;
+        }
+        button {
+            padding-top: 11px;
+            opacity: 1;
+            transition: opacity 0.2s ease-in;
+            float: left;
+            .icon.icon-command {
+                font-size: 20px;
+                line-height: 24px;
+                outline: none;
+                margin: 0 18px;
+            }
+            label {
+                opacity: 0;
+                transition: opacity .1s;
+                font-family: "Segoe UI", sans-serif, "Segoe MDL2 Assets", "Symbols", "Segoe UI Emoji";
+                // font-size: 12px;
+                // font-weight: 400;
+                // line-height: 1.167;
+                // position: relative;
+                line-height: 16px;
+                // display: block;
+                max-width: 66px;
+                //margin-top: -10px;
+                margin-bottom: 6px;
+                // padding: 0;
+                overflow: hidden;
+                word-wrap: break-word;
+                word-break: keep-all;
+                outline: none;
+            }
+            &.hidden {
+                opacity: 0;
+            }
+            &.ellipsis {
+                min-height: 8px;
+                width: 32px;
+                min-width: initial;
+                padding-top: 2px;
+                >span::before {
+                    content: "\E10C";
+                    font-size: 16px;
+                    font-family: "Segoe UI Command", "Symbols";
+                }
+            }
+        }
+    }
+    .second-items-container {
+        z-index: 9;
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 100%;
+        background-color: #f2f2f2;
+        padding-bottom: 24px;
+        transition: transform .15s ease;
+        transform: translateY(100%);
+        button {
+            display: block;
+            width: 100%;
+            text-align: left;
+        }
+        >div {
+            width: 100%;
+            min-width: 200px;
+        }
+        &:empty {
+            display: none;
+        }
+    }
+    button {
+        cursor: default;
+        touch-action: manipulation;
+        background: none;
+        background-clip: border-box;
+        height: auto;
+        padding: 0;
+        margin: 0;
+        border: 1px dotted;
+        min-width: 40px;
+        min-height: 48px;
+        text-align: center;
+        font-size: 12px;
+        line-height: 16px;
+        font-weight: normal;
+        overflow: visible;
+        position: relative;
+        z-index: 0;
+        outline: none;
+        border-color: transparent;
+        background-color: transparent;
+        touch-action: manipulation;
+        display: block;
+        @include has-hover-support() {
+            &:hover {
+                background-color: rgba(0, 0, 0, 0.1);
+                border-color: transparent;
+            }
+        }
+        &:active {
+            background-color: rgba(0, 0, 0, 0.2);
+        }
+        &.active {
+            background-color: rgba($app-bar-active-color, 0.4);
+            @include has-hover-support() {
+                &:hover {
+                    background-color: rgba($app-bar-active-color, 0.5);
+                }
+            }
+            &:active {
+                background-color: rgba($app-bar-active-color, 0.6);
+            }
+        }
+    }
+}
+
+.clickeater {
+    z-index: 900;
+    background-color: transparent;
+    width: 110%;
+    height: 110%;
+    left: -5%;
+    top: -5%;
+    position: fixed;
+    touch-action: none;
+    outline: 1px solid Purple;
+    /*Necessary to block passthrough over webviews*/
+    -ms-high-contrast-adjust: none;
+}
+
+//// other styles
+//slot="second-items"
+.second-items-container {
+    button {
+        >span {
+            font-family: "Segoe UI", sans-serif, "Segoe MDL2 Assets", "Symbols", "Segoe UI Emoji";
+            font-size: 15px;
+            line-height: inherit;
+            min-width: 112px;
+            max-width: none;
+            white-space: nowrap;
+            text-overflow: clip;
+            margin: 0px;
+            padding: 0px 22px;
+            font-weight: 400;
+        }
+    }
+}

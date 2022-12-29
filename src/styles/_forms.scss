@@ -1,0 +1,278 @@
+select,
+input[type="text"] {
+    width: 100% !important;
+    max-width: none !important;
+}
+
+//// to calculate the proper list-view height bevore content is loaded, fill it with the text height
+//// http://stackoverflow.com/a/19348054/451043
+.list-header {
+    white-space: nowrap;
+    //// there is a min-height, so the following is not needed anymore
+    //// fills the text with a space if empty to set the height
+    // &:empty::before {
+    //     content: '\00a0';
+    // }
+}
+
+h1 {
+    margin-bottom: 4px;
+    border-color: transparent;
+}
+
+p {
+    margin: 8px 0;
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 1.333;
+    &.status {
+        margin-top: 0;
+        //white-space: nowrap;
+        &:empty::before {
+            content: '\00a0';
+        }
+    }
+}
+
+h1 {
+    font-size: 46px;
+    font-weight: 200;
+    line-height: 1.216;
+    letter-spacing: 0;
+    margin-top: 0;
+    margin-bottom: 4px;
+}
+
+h2 {
+    font-size: 34px;
+    font-weight: 200;
+    line-height: 1.176;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.win-type-title,
+h3 {
+    //line-height: initial;
+    margin: 0;
+    margin-top: 12px;
+    display: inline-block;
+    font-size: 24px;
+    font-weight: 300;
+    line-height: 1.167;
+}
+
+h4 {
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 1.2;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+label {
+    display: block;
+    font-weight: 400;
+    &.disabled {
+        color: grey;
+    }
+    input[type="checkbox"] {
+        vertical-align: middle;
+        margin-top: 5px;
+        margin-bottom: 10px;
+        margin-right: 4px;
+        margin-left: 1px;
+    }
+}
+
+.input-group {
+    display: table;
+    .input-group .form-control {
+        position: relative;
+        z-index: 2;
+        float: left;
+        width: 100%;
+        margin-bottom: 0;
+    }
+    .input-group-btn {
+        position: relative;
+        font-size: 0;
+        white-space: nowrap;
+        display: table-cell;
+        width: 1%;
+        vertical-align: middle;
+    }
+    .input-group-btn button {
+        //// no 'auto' support on webkit
+        min-width: initial;
+        min-height: initial;
+        padding: 4px 6px;
+        .icon {
+            display: inline-block;
+            padding: 0;
+            margin-top: 0;
+        }
+        &.move {
+            margin-right: 15px;
+            cursor: n-resize;
+        }
+    }
+}
+
+a {
+    outline: none;
+    color: rgb(0, 120, 215);
+    text-decoration: underline;
+    cursor: pointer;
+    touch-action: manipulation;
+    @include has-hover-support() {
+        &:hover {
+            color: rgba(0, 0, 0, .6);
+        }
+    }
+    &:active {
+        color: rgba(0, 0, 0, .4);
+    }
+    &[disabled] {
+        color: gray;
+        pointer-events: none;
+        cursor: default;
+    }
+}
+
+.info {
+    background-color: lightgray;
+    padding: 6px;
+}
+
+//
+// Push button
+//
+button {
+    color: #000;
+    background-color: rgba(0, 0, 0, .2);
+    border-color: transparent;
+    text-align: left;
+    margin: 0;
+    min-height: 32px;
+    min-width: 120px;
+    padding: 4px 8px;
+    border-style: solid;
+    border-width: 2px;
+    background-clip: border-box;
+    border-radius: 0;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 1.333;
+    touch-action: manipulation;
+    -webkit-appearance: none;
+    @include has-hover-support() {
+        &:hover {
+            border-color: rgba(0, 0, 0, .4);
+        }
+    }
+    &:active {
+        background-color: rgba(0, 0, 0, .4);
+    }
+    &:disabled {
+        color: rgba(0, 0, 0, .2);
+        background-color: rgba(0, 0, 0, .2);
+        border-color: transparent;
+    }
+}
+
+input[type="text"] {
+    color: #000;
+    background-color: rgba(255, 255, 255, .4);
+    border-color: rgba(0, 0, 0, .4);
+    -ms-user-select: element;
+    margin: 8px 0;
+    width: 296px;
+    min-width: 64px;
+    min-height: 28px;
+    box-sizing: border-box;
+    padding: 4px 6px 5px 10px;
+    outline: 0;
+    border-style: solid;
+    border-width: 2px;
+    background-clip: border-box;
+    border-radius: 0;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 1.333;
+    &:focus {
+        border-color: rgb(0, 120, 215);
+    }    
+    @include has-hover-support() {
+        &:focus:hover {
+            border-color: rgb(0, 120, 215);
+        }
+        &:hover {
+            background-color: rgba(255, 255, 255, .6);
+            border-color: rgba(0, 0, 0, .6);
+        }
+    }
+}
+
+textarea {
+    @extend input[type="text"];
+    resize: none;
+    margin-bottom: 4px;
+}
+
+input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    vertical-align: middle;
+    margin: 5px 4px 10px 1px;
+}
+
+select {
+    color: #000;
+    background-color: rgba(0, 0, 0, .2);
+    border-color: rgba(0, 0, 0, .4);
+    min-width: 56px;
+    max-width: 368px;
+    min-height: 32px;
+    margin: 8px 0;
+    border-style: solid;
+    border-width: 2px;
+    background-clip: border-box;
+    background-image: none;
+    box-sizing: border-box;
+    border-radius: 0;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 1.333;
+    @include has-hover-support() {
+        &:hover {
+            background-color: #f2f2f2;
+            border-color: rgba(0, 0, 0, .6);
+        }
+    }
+    &:disabled {
+        color: rgba(0, 0, 0, .2);
+        background-color: rgba(0, 0, 0, .2);
+    }
+    option {
+        color: #000;
+        background-color: #f2f2f2;
+        font-size: 15px;
+        font-weight: 400;
+        line-height: 1.333;
+        &:checked {
+            color: #fff;
+            background-color: rgb(0, 120, 215);
+        }
+        &:active {
+            background-color: rgba(0, 0, 0, .2);
+            color: #000;
+        }
+        @include has-hover-support() {
+            &:hover {
+                background-color: rgba(0, 0, 0, .2);
+                color: #000;
+            }
+        }
+    }
+}

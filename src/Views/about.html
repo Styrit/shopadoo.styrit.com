@@ -1,0 +1,36 @@
+<template>
+    <div class="content scroll">
+        <h1>About</h1>
+        <p>Shopadoo is a simple app for creating and using lists. It's ideal for
+            quick shopping lists, to do lists, holiday
+            packing lists or anything else that you need to keep track of. For
+            detailed information, visit
+            <a href="https://styrit.com/shopadoo" target="_blank">styrit.com/shopadoo</a>.
+        </p>
+
+        <!--<p>review app</p>
+        write a review to the store
+
+        <p>open store</p>
+        view details about this app-->
+        <!-- <h3>Pricing</h3>
+        <p>Free</p> -->
+        <!--Free on web and phones. Professional, unlimited versions (not available now) on phones for a small fee.-->
+
+        <h3>Found an issue?</h3>
+        <p>Improve the quality of this app by sending feedback to the
+            <a href="https://github.com/Styrit/shopadoo.styrit.com/issues" target="_blank">github issue</a>
+            tracker.
+        </p>
+
+        <template if.bind="showRating">
+            <h3>Rate this app</h3>
+            <p>If you like this app make it popular with a 5 star rate at the
+                <a href="ms-windows-store://review/?ProductId=9nblggh525zn">Microsoft Store</a>
+            </p>
+        </template>
+
+        <h3>Version</h3>
+        <p>Shopadoo ${version}</p>
+    </div>
+</template>

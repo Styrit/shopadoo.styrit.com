@@ -1,0 +1,84 @@
+$itemsLeftPadding: 14px;
+.listViewContainer {
+    overflow-y: auto !important;
+}
+
+list-view {
+    height: 100%;
+    .list-item-template {
+        &.has-menu {
+            background-color: #e6e6e6;
+        }
+    }
+    &.myLists {
+        .list-item-template {
+            margin: 0 !important;
+            padding: 10px 0 10px $itemsLeftPadding - 2;
+            p {
+                font-weight: 400;
+                margin: 0px;
+            }
+            .count {
+                position: absolute;
+                background-color: lightgray;
+                margin-bottom: 10px;
+                height: 24px;
+                width: 24px;
+                text-align: center;
+                float: left;
+                margin-right: 8px;
+                p {
+                    padding-top: 4px;
+                    font-size: 12px;
+                    font-weight: 500;
+                }
+            }
+            .name {
+                font-size: 20px;
+                margin-top: -3px;
+                white-space: nowrap;
+                margin-left: 32px;
+            }
+            .activeItems {
+                font-size: smaller;
+                margin-left: 32px;
+            }
+        }
+    }
+    &.toDoList {
+        .selection-mode {
+            .list-item-template {}
+        }
+        .list-item-template {
+            margin: 0 !important;
+            &.item-done {
+                p {
+                    text-decoration: line-through;
+                    opacity: 0.4;
+                }
+            }
+            p {
+                padding: 10px 0;
+                font-weight: 400;
+                margin: 0px;
+                font-size: 15px;
+            }
+            padding-left: $itemsLeftPadding;
+            padding-right: 5px;
+        }
+        // li.group-item>ul#group-0 {
+        //     min-height: initial;
+        // }
+    }
+    .group-item-template {
+        //position: relative;
+        font-size: 18px;
+        background-color: #f7f7f7;
+        padding: 0 14px;
+        line-height: 41px;
+        color: $accentColor;
+        touch-action: pan-x pan-y pinch-zoom;
+        overflow: hidden;
+        cursor: default;
+    }
+}

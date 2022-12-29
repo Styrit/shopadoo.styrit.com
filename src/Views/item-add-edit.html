@@ -1,0 +1,35 @@
+﻿<template>
+
+    <require from="Components/back-button"></require>
+    <require from="Components/app-bar"></require>
+    <require from="Components/app-bar"></require>
+
+    <div class="content appbar">
+        <back-button></back-button>
+        <h2 class="clearfix">${!isInEditMode ? 'Add Item' : 'Edit Item'}</h2>
+
+        <input id="autoSuggestBox" type="text" autocomplete="off" class="toDoItem"
+            value.bind="toDoItem.name" placeholder="What do I need?">
+        <p if.one-time="!isInEditMode" class="status">${addedStatus || "'Enter'
+            key for quick insert"}</p>
+
+        <div class="form-group" if.one-time="selectedList.groups.length > 1">
+            <label for="Group">Group</label>
+            <!-- tabindex workaround for making the 'enter' key on android phones work. -->
+            <select id="Group" tabindex="-1" class="form-control" value.bind="selectedGroup">
+                <option repeat.for="group of selectedList.groups & oneTime" 
+                model.bind="group">${group.name}</option>
+            </select>
+        </div>
+    </div>
+
+    <app-bar if.bind="!isInEditMode">
+        <div slot="main-items">
+            <button click.trigger="appBarSave()" title="Save item" >
+                <span class="icon icon-command icon-save" tabindex="-1"></span>
+                <label tabindex="-1">Save</label>
+            </button>
+        </div>
+    </app-bar>
+
+</template>

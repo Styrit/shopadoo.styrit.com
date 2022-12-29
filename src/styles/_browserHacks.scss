@@ -1,0 +1,9 @@
+//// http://stackoverflow.com/questions/32201586/how-to-identify-microsoft-edge-browser-via-css
+@supports (-ms-ime-align:auto) {
+    select {
+        option {
+            //// Edge has some problems with the option height by using the Segoe UI font.
+            font-family: sans-serif;
+        }
+    }
+}

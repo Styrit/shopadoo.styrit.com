@@ -1,0 +1,22 @@
+{
+    "cells": [
+        {
+            "language": "typescript",
+            "source": [
+                "new Date().toISOString().split(\"T\")[0]"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "text/plain",
+                            "value": [
+                                "\u001b[32m'2022-12-28'\u001b[39m"
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

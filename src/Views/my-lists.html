@@ -1,0 +1,47 @@
+﻿<template>
+
+    <require from="valueConverters"></require>
+    <require from="Components/list-view"></require>
+    <require from="Components/app-bar"></require>    
+
+    <div class="content">
+        <h1>My Lists</h1>
+    </div>
+
+    <div class="flex listViewContainer appbar">
+        <list-view class="myLists" items.bind="listService.myLists"
+            items-draggable.bind="itemsDraggable">
+            <template replace-part="item-template">
+                <div class="list-item-template" click.delegate="onClick(item)"
+                    contextmenu.delegate="onContextmenu(item, $event)">
+                    <div class="count"
+                        css="background-color: ${item.color | colorKeyToHexColor}">
+                        <p>${item.count}</p>
+                    </div>
+                    <p class="name">${item.name}</p>
+                    <p class="activeItems">active items ${item.shared ?
+                        '(shared)' : ''}</p>
+                </div>
+            </template>
+        </list-view>
+    </div>
+
+    <app-bar>
+        <div slot="main-items">
+            <button click.trigger="sortClick()" class="${itemsDraggable ? 'active' : ''}">
+                <span class="icon icon-command icon-sort" tabindex="-1"></span>
+                <label tabindex="-1">Sort</label>
+            </button>
+
+            <button click.trigger="addClick()">
+                <span class="icon icon-command icon-add" tabindex="-1"></span>
+                <label tabindex="-1">Add</label>
+            </button>
+        </div>
+        <div slot="second-items">
+            <button click.trigger="settingsClick()"><span>Settings</span></button>
+            <button click.trigger="aboutClick()"><span>About</span></button>
+        </div>
+    </app-bar>
+
+</template>
