@@ -11,12 +11,62 @@
                         {
                             "mime": "text/plain",
                             "value": [
-                                "\u001b[32m'2022-12-28'\u001b[39m"
+                                "\u001b[32m'2023-01-03'\u001b[39m"
                             ]
                         }
                     ]
                 }
             ]
+        },
+        {
+            "language": "typescript",
+            "source": [
+                "new Date().getFullYear()"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "text/plain",
+                            "value": [
+                                "\u001b[33m2023\u001b[39m"
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "language": "typescript",
+            "source": [
+                "function getWeekNumber(d) {\n    // Copy date so don't modify original\n    d = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));\n    // Set to nearest Thursday: current date + 4 - current day number\n    // Make Sunday's day number 7\n    d.setUTCDate(d.getUTCDate() + 4 - (d.getUTCDay()||7));\n    // Get first day of year\n    var yearStart = new Date(Date.UTC(d.getUTCFullYear(),0,1));\n    // Calculate full weeks to nearest Thursday\n    var weekNo = Math.ceil(( ( (d - yearStart) / 86400000) + 1)/7);\n    // Return array of year and week number\n    return weekNo\n}"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "typescript",
+            "source": [
+                "new Date().getFullYear() + '-' + getWeekNumber(new Date(\"2022-12-01\"));"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "text/plain",
+                            "value": [
+                                "\u001b[32m'2023-48'\u001b[39m"
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "language": "typescript",
+            "source": [
+                "getWeekNumber(left.modified)"
+            ],
+            "outputs": []
         }
     ]
 }
