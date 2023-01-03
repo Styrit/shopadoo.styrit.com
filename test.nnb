@@ -64,9 +64,27 @@
         {
             "language": "typescript",
             "source": [
-                "getWeekNumber(left.modified)"
+                "const monthsGone = Math.floor((new Date().getTime() - new Date(\"2022-11-01\").getTime()) / 1000 / 60  / 60 / 24 / 30)"
             ],
             "outputs": []
+        },
+        {
+            "language": "typescript",
+            "source": [
+                "Math.max(12-13, 0)"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "text/plain",
+                            "value": [
+                                "\u001b[33m0\u001b[39m"
+                            ]
+                        }
+                    ]
+                }
+            ]
         }
     ]
 }

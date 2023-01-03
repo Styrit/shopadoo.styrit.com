@@ -34,9 +34,11 @@ export class ToDoItemComparer {
     }
 
     private getUsageComparer(left: ToDoItem, right: ToDoItem, activeItemsFirst = false): number {
-        // we sort by year, weeknumber, and usage
-        const leftSortKey = left.modified.getFullYear() + '-' + getWeekNumber(left.modified) + '-' + left.usage
-        const rightSortKey = right.modified.getFullYear() + '-' + getWeekNumber(right.modified) + '-' + right.usage
+        // we sort by year, month, and usage
+        const leftMonthsGone = Math.floor((new Date().getTime() - left.modified.getTime()) / 1000 / 60 / 60 / 24 / 30)
+        const rightMonthsGone = Math.floor((new Date().getTime() - right.modified.getTime()) / 1000 / 60 / 60 / 24 / 30)
+        const leftSortKey = `${Math.max(12 - leftMonthsGone, 0)}-${left.usage}`
+        const rightSortKey = `${Math.max(12 - rightMonthsGone, 0)}-${right.usage}`
 
         if (activeItemsFirst) {
             if (left.done && !right.done)
@@ -71,19 +73,4 @@ export class Comparer {
 
         return left.localeCompare(right)
     }
-}
-
-
-function getWeekNumber(d) {
-    // Copy date so don't modify original
-    d = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
-    // Set to nearest Thursday: current date + 4 - current day number
-    // Make Sunday's day number 7
-    d.setUTCDate(d.getUTCDate() + 4 - (d.getUTCDay() || 7));
-    // Get first day of year
-    var yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
-    // Calculate full weeks to nearest Thursday
-    var weekNo = Math.ceil((((d - yearStart) / 86400000) + 1) / 7);
-    // Return array of year and week number
-    return weekNo
 }
