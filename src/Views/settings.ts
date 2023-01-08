@@ -12,7 +12,6 @@ import { ImportService } from 'Services/ImportService'
 import { ToDoList, IToDoList } from 'Models/ToDoList'
 import { AppService } from 'Services/AppService'
 import { ModalDialog, IModalDialogModel } from 'Components/modal-dialog'
-import { ColorKeyToHexColorValueConverter } from '../valueConverters'
 
 @autoinject
 export class SettingsViewModel {
@@ -124,7 +123,7 @@ export class SettingsViewModel {
                     this.settingsService.storageProvider.driveService.uploadFile(this.settingsService.backupFileName, this.listService.myListsToPlainObject())
                         .then(d => {
                             this.settingsService.storageProvider.driveService.hasBackup = true
-                            this.settingsService.storageProvider.driveService.lastBackupDate = new Date().toLocaleDateString()
+                            this.settingsService.storageProvider.driveService.lastBackupDate = new Date()
                         })
                         .catch(error => {
                             this.appService.showDialog(this.appService.getDialogModelFromError(error))
