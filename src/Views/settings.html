@@ -1,4 +1,7 @@
 <template>
+
+	<require from="valueConverters"></require>
+
 	<div class="content scroll">
 
 		<h1>Settings</h1>
@@ -33,8 +36,8 @@
 				click.trigger="restoreBackup()">
 				<span class="icon icon-download"></span>
 				Restore Backup</button>
-			<p show.bind="settingsService.storageProvider.driveService.lastAutoBackupDate">Last backup date:
-				${settingsService.storageProvider.driveService.lastAutoBackupDate} </p>
+			<p show.bind="settingsService.storageProvider.driveService.hasBackup">Last manual backup date:
+				${settingsService.storageProvider.driveService.lastBackupDate | dateFormat} </p>
 
 			<div if.bind="hasStyritShoppingListData && settingsService.storageProvider.id == 'OneDrive'">
 				<p>There is a backup from the app 'Styrit Shopping List'<br>
@@ -49,6 +52,8 @@
 						checked.bind="settingsService.settings.autoBackup"> Automatic Backup                    
                 </label> This enables automatic backups of your lists. A login is required. More infos
 				<a href="http://styrit.com/shopadoo/backup">here</a>.
+				<p show.bind="settingsService.settings.lastAutoBackupDate">Last automatic backup date:
+					${settingsService.settings.lastAutoBackupDate | dateFormat} </p>
 			</div>
 
 			<div show.bind="settingsService.storageProvider.syncSupport" class="checkbox" style="margin-top:20px">
