@@ -14,7 +14,7 @@ import { DriveItem } from 'Models/DriveItem'
 
 export class OneDriveService implements IDriveService {
     hasBackup: boolean
-    lastBackupDate: string
+    lastBackupDate: Date
     rootUrl: string
 
     constructor(private authService: IAuthService, private settingsService: SettingsService, private logger: Logger) {
@@ -335,7 +335,7 @@ export class OneDriveService implements IDriveService {
         this.downloadFileMetadata(this.settingsService.backupFileName)
             .then(response => {
                 this.hasBackup = true
-                this.lastBackupDate = new Date(response.lastModifiedDateTime).toLocaleDateString()
+                this.lastBackupDate = new Date(response.lastModifiedDateTime)
             })
             .catch(error => {
                 this.hasBackup = false

@@ -1,6 +1,6 @@
 export interface IDriveService {
     hasBackup: boolean
-    lastBackupDate: string
+    lastBackupDate: Date
 
     getChanges(): Promise<IDriveItem[]>
 
