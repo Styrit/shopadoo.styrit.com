@@ -1,6 +1,6 @@
 # `Shopadoo`
 
-Shopadoo is a simple app for creating and using lists. It’s ideal for quick shopping lists, to do lists, holiday packing lists or anything else that you need to keep track of. More info on https://styrit.com/shopadoo
+Shopadoo is a simple app for creating and using lists. It’s ideal for quick shopping lists, to do lists, holiday packing lists or anything else that you need to keep track of. More info at https://styrit.com/shopadoo
 
 <a href="http://shopadoo.styrit.com/" target="_blank">
     <img src="https://styrit.com/images/shopadoo/web-badge.png" width="256" />
