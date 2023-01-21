@@ -37,8 +37,10 @@ export class ToDoItemComparer {
         // we sort by year, month, and usage
         const leftMonthsGone = Math.floor((new Date().getTime() - left.modified.getTime()) / 1000 / 60 / 60 / 24 / 30)
         const rightMonthsGone = Math.floor((new Date().getTime() - right.modified.getTime()) / 1000 / 60 / 60 / 24 / 30)
-        const leftSortKey = `${Math.max(12 - leftMonthsGone, 0)}-${left.usage}`
-        const rightSortKey = `${Math.max(12 - rightMonthsGone, 0)}-${right.usage}`
+        const leftSortKey = `${String(Math.max(12 - leftMonthsGone, 0))
+            .padStart(2, '0')}-${String(left.usage).padStart(4, '0')}`
+        const rightSortKey = `${String(Math.max(12 - rightMonthsGone, 0))
+            .padStart(2, '0')}-${String(right.usage).padStart(4, '0')}`
 
         if (activeItemsFirst) {
             if (left.done && !right.done)
