@@ -19,10 +19,11 @@
     "basiccontext": "git+https://github.com/gp-slick-coder/basicContext#master",
     "idb-keyval": "^6.2.0",
     "pixabay-auto-complete": "git+https://github.com/gp-slick-coder/JavaScript-autoComplete#master",
-    "sass": "^1.67.0",
-    "sortablejs": "^1.15.0"
+    "sortablejs": "^1.15.0",
+    "@sentry/browser": "^7.69.0"
   },
   "devDependencies": {
+    "sass": "^1.67.0",
     "@types/jest": "^24.0.9",
     "@types/lodash": "^4.14.117",
     "@types/node": "^10.11.6",
@@ -72,8 +73,8 @@
     "workbox-webpack-plugin": "^4.3.1"
   },
   "scripts": {
-    "build": "NODE_OPTIONS=--openssl-legacy-provider && webpack --env.production --extractCss",
-    "dev": "NODE_OPTIONS=--openssl-legacy-provider && webpack-dev-server --extractCss",
+    "build": "set NODE_OPTIONS=--openssl-legacy-provider && webpack --env.production --extractCss",
+    "dev": "set NODE_OPTIONS=--openssl-legacy-provider && webpack-dev-server --extractCss",
     "build:dev": "webpack --extractCss",
     "analyze": "webpack --env.production --analyze"
   },

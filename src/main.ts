@@ -3,10 +3,17 @@ import { Aurelia, LogManager } from 'aurelia-framework'
 import { ConsoleAppender } from 'aurelia-logging-console'
 import { GALogger } from 'Helper/GALogger'
 import * as system from 'System/index'
+import * as Sentry from "@sentry/browser";
+
 
 //// http://www.mikeobrien.net/blog/client-side-exception-logging-in-aurelia/
 LogManager.addAppender(new GALogger())
 LogManager.setLevel(LogManager.logLevel.error)
+
+
+Sentry.init({
+    dsn: "https://1870778dec1d2ead7bf1430c939060dd@o279753.ingest.sentry.io/4505892091396096",
+});
 
 export function configure(aurelia: Aurelia) {
     aurelia.use.standardConfiguration()
