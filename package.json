@@ -1,6 +1,6 @@
 {
   "name": "Shopadoo",
-  "version": "2.2.4",
+  "version": "2.2.5",
   "description": "The easy to-do and shopping list for everyday use.",
   "license": "GNU AGPLv3",
   "author": {
@@ -17,7 +17,7 @@
     "aurelia-dialog": "git+https://github.com/gp-slick-coder/dialog#css-button-reset",
     "aurelia-fetch-client": "^1.8.2",
     "basiccontext": "git+https://github.com/gp-slick-coder/basicContext#master",
-    "idb-keyval": "^6.2.0",
+    "idb-keyval": "^6.2.1",
     "pixabay-auto-complete": "git+https://github.com/gp-slick-coder/JavaScript-autoComplete#master",
     "sortablejs": "^1.15.0",
     "@sentry/browser": "^7.69.0"
