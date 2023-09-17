@@ -25,8 +25,10 @@ p {
     font-weight: 300;
     font-size: 16px;
     line-height: 1.333;
+
     &.status {
         margin-top: 0;
+
         //white-space: nowrap;
         &:empty::before {
             content: '\00a0';
@@ -73,9 +75,11 @@ h4 {
 label {
     display: block;
     font-weight: 400;
+
     &.disabled {
         color: grey;
     }
+
     input[type="checkbox"] {
         vertical-align: middle;
         margin-top: 5px;
@@ -87,6 +91,7 @@ label {
 
 .input-group {
     display: table;
+
     .input-group .form-control {
         position: relative;
         z-index: 2;
@@ -94,6 +99,7 @@ label {
         width: 100%;
         margin-bottom: 0;
     }
+
     .input-group-btn {
         position: relative;
         font-size: 0;
@@ -102,16 +108,19 @@ label {
         width: 1%;
         vertical-align: middle;
     }
+
     .input-group-btn button {
         //// no 'auto' support on webkit
         min-width: initial;
         min-height: initial;
         padding: 4px 6px;
+
         .icon {
             display: inline-block;
             padding: 0;
             margin-top: 0;
         }
+
         &.move {
             margin-right: 15px;
             cursor: n-resize;
@@ -125,14 +134,17 @@ a {
     text-decoration: underline;
     cursor: pointer;
     touch-action: manipulation;
+
     @include has-hover-support() {
         &:hover {
             color: rgba(0, 0, 0, .6);
         }
     }
+
     &:active {
         color: rgba(0, 0, 0, .4);
     }
+
     &[disabled] {
         color: gray;
         pointer-events: none;
@@ -166,14 +178,17 @@ button {
     line-height: 1.333;
     touch-action: manipulation;
     -webkit-appearance: none;
+
     @include has-hover-support() {
         &:hover {
             border-color: rgba(0, 0, 0, .4);
         }
     }
+
     &:active {
         background-color: rgba(0, 0, 0, .4);
     }
+
     &:disabled {
         color: rgba(0, 0, 0, .2);
         background-color: rgba(0, 0, 0, .2);
@@ -200,13 +215,16 @@ input[type="text"] {
     font-size: 15px;
     font-weight: 400;
     line-height: 1.333;
+
     &:focus {
         border-color: rgb(0, 120, 215);
-    }    
+    }
+
     @include has-hover-support() {
         &:focus:hover {
             border-color: rgb(0, 120, 215);
         }
+
         &:hover {
             background-color: rgba(255, 255, 255, .6);
             border-color: rgba(0, 0, 0, .6);
@@ -215,7 +233,7 @@ input[type="text"] {
 }
 
 textarea {
-    @extend input[type="text"];
+    @extend input, [type=text];
     resize: none;
     margin-bottom: 4px;
 }
@@ -244,30 +262,36 @@ select {
     font-size: 15px;
     font-weight: 400;
     line-height: 1.333;
+
     @include has-hover-support() {
         &:hover {
             background-color: #f2f2f2;
             border-color: rgba(0, 0, 0, .6);
         }
     }
+
     &:disabled {
         color: rgba(0, 0, 0, .2);
         background-color: rgba(0, 0, 0, .2);
     }
+
     option {
         color: #000;
         background-color: #f2f2f2;
         font-size: 15px;
         font-weight: 400;
         line-height: 1.333;
+
         &:checked {
             color: #fff;
             background-color: rgb(0, 120, 215);
         }
+
         &:active {
             background-color: rgba(0, 0, 0, .2);
             color: #000;
         }
+
         @include has-hover-support() {
             &:hover {
                 background-color: rgba(0, 0, 0, .2);

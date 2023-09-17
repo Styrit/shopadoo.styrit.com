@@ -187,7 +187,10 @@ export class SettingsViewModel {
         // this.appService.showDialog({ title: 'Test title!', text: 'Test text' })
         // ga('send', 'exception', { 'exDescription': 'Test Message!', 'exFatal': true })
 
-        // this.logger.error('TEst ERROR')
+        this.logger.error('TEst ERROR')
+
+
+
     }
 
     manualUpSync() {
