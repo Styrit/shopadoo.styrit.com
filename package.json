@@ -79,6 +79,6 @@
     "analyze": "webpack --env.production --analyze"
   },
   "engines": {
-    "node": ">=12"
+    "node": ">=18"
   }
 }
