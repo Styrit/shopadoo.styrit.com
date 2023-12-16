@@ -1,3 +1,7 @@
+const crypto = require("crypto");
+const crypto_orig_createHash = crypto.createHash;
+crypto.createHash = algorithm => crypto_orig_createHash(algorithm == "md4" ? "sha256" : algorithm);
+
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
@@ -140,13 +144,14 @@ module.exports = ({ production } = {}, { extractCss, analyze, tests, hmr, port, 
       } : undefined,
       metadata: {
         // available in index.ejs //
-        version, baseUrl, 
+        version, baseUrl,
         mode: production ? 'production' : 'development'
-      }      
+      }
     }),
-    new CopyWebpackPlugin([{ 
-      from: srcDir + '/auth-callback.html', 
-      to: outDir}]),    
+    new CopyWebpackPlugin([{
+      from: srcDir + '/auth-callback.html',
+      to: outDir
+    }]),
     // ref: https://webpack.js.org/plugins/mini-css-extract-plugin/
     ...when(extractCss, new MiniCssExtractPlugin({ // updated to match the naming conventions for the js files
       filename: production ? 'css/[name].[contenthash].bundle.css' : 'css/[name].[hash].bundle.css',

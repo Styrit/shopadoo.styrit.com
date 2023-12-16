@@ -1,6 +1,6 @@
 {
   "name": "Shopadoo",
-  "version": "2.2.4",
+  "version": "2.2.5",
   "description": "The easy to-do and shopping list for everyday use.",
   "license": "GNU AGPLv3",
   "author": {
@@ -17,11 +17,13 @@
     "aurelia-dialog": "git+https://github.com/gp-slick-coder/dialog#css-button-reset",
     "aurelia-fetch-client": "^1.8.2",
     "basiccontext": "git+https://github.com/gp-slick-coder/basicContext#master",
-    "idb-keyval": "^6.2.0",
+    "idb-keyval": "^6.2.1",
     "pixabay-auto-complete": "git+https://github.com/gp-slick-coder/JavaScript-autoComplete#master",
-    "sortablejs": "^1.15.0"
+    "sortablejs": "^1.15.0",
+    "@sentry/browser": "^7.69.0"
   },
   "devDependencies": {
+    "sass": "^1.67.0",
     "@types/jest": "^24.0.9",
     "@types/lodash": "^4.14.117",
     "@types/node": "^10.11.6",
@@ -52,9 +54,8 @@
     "json-loader": "^0.5.7",
     "mini-css-extract-plugin": "^0.4.3",
     "minimatch": "^3.0.4",
-    "node-sass": "^4.14.1",
     "promise-polyfill": "^8.1.0",
-    "sass-loader": "^7.1.0",
+    "sass-loader": "^9",
     "style-loader": "^0.23.1",
     "through2": "^3.0.0",
     "tree-kill": "^1.2.2",
@@ -78,6 +79,6 @@
     "analyze": "webpack --env.production --analyze"
   },
   "engines": {
-    "node": ">=12"
+    "node": ">=18"
   }
 }

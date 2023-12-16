@@ -15,7 +15,6 @@ Shopadoo is a simple app for creating and using lists. It’s ideal for quick sh
 ### Run dev app
 
 Rename the file `config/secrets.temp.json` to `secrets.json`.
-
 Run `npm run dev`, then open `http://localhost:8080`
 
 ### Debugging on Phone
@@ -25,3 +24,4 @@ Run `npm run dev`, then open `http://localhost:8080`
 - Go to your command-line and enter "adb connect localhost:8080"
 - chrome://inspect/#devices
 - press "inspect"
+
