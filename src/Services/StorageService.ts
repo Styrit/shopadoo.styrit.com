@@ -141,7 +141,7 @@ export class StorageService {
         } catch (error) {
             this.logger.error('Error loading lists: ', error)
         }
-        if (data == null)
+        if (!data)
             data = this.listService.getDefaultData()
 
         this.listService.setLists(data)
@@ -153,7 +153,7 @@ export class StorageService {
         // http://stackoverflow.com/questions/26248020/store-and-retrieve-winjs-binding-list-in-application-data
 
         // do not save the data if app start fails
-        if (this.listService.myLists) {
+        if (this.listService.myLists?.length) {
             try {
                 await this.saveToStorage(this.storageKeyLists, this.listService.myListsToPlainObject())
             } catch (error) {
@@ -230,6 +230,7 @@ export class StorageService {
             data = await get(key)
         }
         if (!data) {
+            // for the migration to indexed db
             data = localStorage.getItem(key)
         }
 
