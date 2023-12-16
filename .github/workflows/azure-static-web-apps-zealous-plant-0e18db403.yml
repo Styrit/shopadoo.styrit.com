@@ -39,10 +39,10 @@ jobs:
           app_location: "dist" # App source code path
           ###### End of Repository/Build Configurations ######
       - name: Tag the release
-          run: |
-              version=$(node -p "require('./package.json').version")
-              git tag -a "$version" -m "Version $version"
-              git push --follow-tags
+        run: |
+            version=$(node -p "require('./package.json').version")
+            git tag -a "$version" -m "Version $version"
+            git push --follow-tags
             
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
