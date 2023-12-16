@@ -38,6 +38,10 @@ jobs:
           # For more information regarding Static Web App workflow configurations, please visit: https://aka.ms/swaworkflowconfig
           app_location: "dist" # App source code path
           ###### End of Repository/Build Configurations ######
+      - name: Set up Git
+        run: |
+            git config user.name "github actions"
+            git config user.email ""
       - name: Tag the release
         run: |
             version=$(node -p "require('./package.json').version")
