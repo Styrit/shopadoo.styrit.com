@@ -148,17 +148,21 @@ module.exports = ({ production } = {}, { extractCss, analyze, tests, hmr, port, 
         mode: production ? 'production' : 'development'
       }
     }),
-    new CopyWebpackPlugin([{
-      from: srcDir + '/auth-callback.html',
-      to: outDir
-    }]),
+    new CopyWebpackPlugin({
+      patterns: [{
+        from: srcDir + '/auth-callback.html',
+        to: outDir
+      }]
+    }),
     // ref: https://webpack.js.org/plugins/mini-css-extract-plugin/
     ...when(extractCss, new MiniCssExtractPlugin({ // updated to match the naming conventions for the js files
       filename: production ? 'css/[name].[contenthash].bundle.css' : 'css/[name].[hash].bundle.css',
       chunkFilename: production ? 'css/[name].[contenthash].chunk.css' : 'css/[name].[hash].chunk.css'
     })),
-    ...when(!tests, new CopyWebpackPlugin([
-      { from: 'static', to: outDir + '/static', ignore: ['.*'] }])), // ignore dot (hidden) files
+    ...when(!tests, new CopyWebpackPlugin({
+      patterns: [
+        { from: 'static', to: outDir + '/static', globOptions: { ignore: ['.*'] } }]
+    })), // ignore dot (hidden) files
     ...when(analyze, new BundleAnalyzerPlugin()),
     /**
      * Note that the usage of following plugin cleans the webpack output directory before build.
@@ -166,7 +170,7 @@ module.exports = ({ production } = {}, { extractCss, analyze, tests, hmr, port, 
      * remove those before the webpack build. In that case consider disabling the plugin, and instead use something like
      * `del` (https://www.npmjs.com/package/del), or `rimraf` (https://www.npmjs.com/package/rimraf).
      */
-    new CleanWebpackPlugin(),
+    new CleanWebpackPlugin.CleanWebpackPlugin(),
     new WorkboxPlugin.GenerateSW({
       // these options encourage the ServiceWorkers to get in there fast
       // and not allow any straggling "old" SWs to hang around
