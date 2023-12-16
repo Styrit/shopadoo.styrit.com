@@ -73,10 +73,10 @@
     "workbox-webpack-plugin": "^4.3.1"
   },
   "scripts": {
-    "build": "webpack --env production=true --env extractCss=ture",
-    "dev": "webpack-dev-server --extractCss",
-    "build:dev": "webpack --extractCss",
-    "analyze": "webpack --env.production --analyze"
+    "build": "webpack --env production --env extractCss",
+    "dev": "webpack-dev-server --env extractCss",
+    "build:dev": "webpack --env extractCss",
+    "analyze": "webpack --env production --analyze"
   },
   "engines": {
     "node": ">=18"
