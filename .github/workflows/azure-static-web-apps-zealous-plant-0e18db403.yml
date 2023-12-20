@@ -11,20 +11,20 @@ on:
 
 jobs:
   build_and_deploy_job:
-    if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
+    if: github.event_name == 'push'
     runs-on: ubuntu-latest
     name: Build and Deploy Job
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Create config file
         run: 'echo "$SECRETS" > config/secrets.json'
         env:
           SECRETS: ${{ secrets.CONFIG }}
-      - uses: actions/setup-node@v2
+      - uses: actions/setup-node@v3
         with:
-          node-version: "12"
+          node-version: "18"
       - name: Install Dependencies
-        run: npm install
+        run: npm install --legacy-peer-deps
       - name: Build
         run: npm run build
       - name: Build And Deploy
@@ -38,7 +38,12 @@ jobs:
           # For more information regarding Static Web App workflow configurations, please visit: https://aka.ms/swaworkflowconfig
           app_location: "dist" # App source code path
           ###### End of Repository/Build Configurations ######
-
+      - name: Tag the release
+        run: |
+            version=$(node -p "require('./package.json').version")
+            git tag -a "$version" -m "Version $version"
+            git push --follow-tags
+            
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
     runs-on: ubuntu-latest

@@ -27,7 +27,7 @@ export class AppService {
             document.addEventListener('visibilitychange', () => {
                 if (!document['hidden']) {
                     console.info('document visibility changed to visible')
-                    ga('send', 'screenview', { screenName: 'Home (visibilitychange)' })
+                    gtag('send', 'screenview', { screenName: 'Home (visibilitychange)' })
                 }
                 else {
                     console.info('document visibility changed to in-visible')
@@ -70,7 +70,7 @@ export class AppService {
                 dialogModel.title = 'Connection failed'
                 dialogModel.text = 'It seems you are offline. For a successfully synchronization you need a internet connection.'
             }
-            
+
             if (error.responseJSON && error.responseJSON.error) {
                 let oneDriveError = error.responseJSON.error as IOneDriveError
                 if (oneDriveError.code == 'quotaLimitReached') {
@@ -120,7 +120,7 @@ export class AppService {
                 dialogInfo.title = 'Error occurred'
 
             if (this.dialogService.hasActiveDialog) {
-                let activeDialog = this.dialogService.controllers.find(d => (<any> d).viewModel.title == dialogInfo.title && (<any> d).viewModel.text == dialogInfo.text)
+                let activeDialog = this.dialogService.controllers.find(d => (<any>d).viewModel.title == dialogInfo.title && (<any>d).viewModel.text == dialogInfo.text)
                 if (activeDialog) {
                     return //Promise.resolve(undefined)
                 }

@@ -1,14 +1,11 @@
 import { ToDoItem } from 'Models/ToDoItem'
 import { SortType } from 'Models/Enums'
 
-export class ToDoItemComparer
-{
+export class ToDoItemComparer {
     compare: (left: ToDoItem, right: ToDoItem, activeItemsFirst: boolean) => number
 
-    constructor(sortType: SortType)
-    {
-        switch (sortType)
-        {
+    constructor(sortType: SortType) {
+        switch (sortType) {
             case SortType.Alphabetical:
                 this.compare = this.getNameComparer
                 break
@@ -21,10 +18,8 @@ export class ToDoItemComparer
         }
     }
 
-    private getNameComparer(left: ToDoItem, right: ToDoItem, activeItemsFirst = false): number
-    {
-        if (activeItemsFirst)
-        {
+    private getNameComparer(left: ToDoItem, right: ToDoItem, activeItemsFirst = false): number {
+        if (activeItemsFirst) {
             if (left.done && !right.done)
                 return 1;
             if (!left.done && right.done)
@@ -33,33 +28,31 @@ export class ToDoItemComparer
             // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/localeCompare
             return left.name.localeCompare(right.name, undefined, { numeric: true, sensitivity: 'base' });
         }
-        else
-        {
+        else {
             return left.name.localeCompare(right.name, undefined, { numeric: true, sensitivity: 'base' });
         }
     }
 
-    private getUsageComparer(left: ToDoItem, right: ToDoItem, activeItemsFirst = false): number
-    {
-        if (activeItemsFirst)
-        {
+    private getUsageComparer(left: ToDoItem, right: ToDoItem, activeItemsFirst = false): number {
+        // we sort by year, month, and usage
+        const leftMonthsGone = Math.floor((new Date().getTime() - left.modified.getTime()) / 1000 / 60 / 60 / 24 / 30)
+        const rightMonthsGone = Math.floor((new Date().getTime() - right.modified.getTime()) / 1000 / 60 / 60 / 24 / 30)
+        const leftSortKey = `${String(Math.max(12 - leftMonthsGone, 0))
+            .padStart(2, '0')}-${String(left.usage).padStart(4, '0')}`
+        const rightSortKey = `${String(Math.max(12 - rightMonthsGone, 0))
+            .padStart(2, '0')}-${String(right.usage).padStart(4, '0')}`
+
+        if (activeItemsFirst) {
             if (left.done && !right.done)
                 return 1;
             if (!left.done && right.done)
                 return -1;
-
-            return -1 * left.usage.localeCompare(right.usage);
         }
-        else
-        {
-            return -1 * left.usage.localeCompare(right.usage);
-        }
+        return -1 * leftSortKey.localeCompare(rightSortKey);
     }
 
-    private getDateCreatedComparer(left: ToDoItem, right: ToDoItem, activeItemsFirst = false): number
-    {
-        if (activeItemsFirst)
-        {
+    private getDateCreatedComparer(left: ToDoItem, right: ToDoItem, activeItemsFirst = false): number {
+        if (activeItemsFirst) {
             if (left.done && !right.done)
                 return 1;
             if (!left.done && right.done)
@@ -67,17 +60,14 @@ export class ToDoItemComparer
 
             return right.created.localeCompare(left.created);
         }
-        else
-        {
+        else {
             return right.created.localeCompare(left.created);
         }
     }
 }
 
-export class Comparer
-{
-    static searchTermCompare(left: string, right: string, term: string): number
-    {
+export class Comparer {
+    static searchTermCompare(left: string, right: string, term: string): number {
         if (left.startsWith(term) && !right.startsWith(term))
             return -1
         if (right.startsWith(term) && !left.startsWith(term))

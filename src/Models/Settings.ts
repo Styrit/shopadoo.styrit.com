@@ -2,7 +2,7 @@ export interface ISettings {
     syncData: boolean
     lastUpSyncDate: string
     autoBackup: boolean
-    lastAutoBackupDate: Date
+    lastAutoBackupDate: string
     oneDriveDeltaToken: string
     googleDriveDeltaToken: string
     oneDriveRefreshToken: string
@@ -22,7 +22,7 @@ export class Settings {
     oneDriveRefreshToken: string
 
     static Map(settings: ISettings): Settings {
-        let s = new Settings()
+        const s = new Settings()
         if (settings) {
             s.syncData = settings.syncData
             if (settings.lastUpSyncDate)

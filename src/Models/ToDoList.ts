@@ -119,7 +119,7 @@ export class ToDoList {
         let url = undefined
 
         if (this.shared && this.shared.url) {
-            let indexOf = this.shared.url.indexOf(indexOfOneDrive)
+            const indexOf = this.shared.url.indexOf(indexOfOneDrive)
             if (indexOf > 0) {
                 url = addSharedListWebUrl + encodeURIComponent(this.shared.url.substring(indexOf + indexOfOneDrive.length))
             }
@@ -149,7 +149,7 @@ export class ToDoList {
     }
 
     getGroup(item: ToDoItem): Group {
-        for (let group of this.groups) {
+        for (const group of this.groups) {
             if (group.items.find(d => d.id == item.id))
                 return group
         }
@@ -167,7 +167,7 @@ export class ToDoList {
     static getLatestModifiedDateWithItems(list: IToDoList): Date {
         let modDate = new Date(list.modified)
         list.items.forEach(item => {
-            let modified = new Date(item.modified)
+            const modified = new Date(item.modified)
             if (modDate < modified)
                 modDate = modified
         })
@@ -175,7 +175,7 @@ export class ToDoList {
     }
 
     static map(item: IToDoList): ToDoList {
-        let list = new ToDoList(item.name, false)
+        const list = new ToDoList(item.name, false)
         list.id = item.id
         list.groups = this.getGroups(list, item.groups, item.items)
         list.showActiveItemsFirst = item.showActiveItemsFirst
@@ -221,8 +221,8 @@ export class ToDoList {
             return AddedItemInfoType.Invalid
         }
 
-        let gr = group ? group : this.defaultGroup
-        let itemsInList = gr.items.filter(d => d.name.toLowerCase() == item.name.toLowerCase())
+        const gr = group ? group : this.defaultGroup
+        const itemsInList = gr.items.filter(d => d.name.toLowerCase() == item.name.toLowerCase())
         if (itemsInList.length) {
             // should be only one item
             itemsInList.forEach(item => {
@@ -248,8 +248,8 @@ export class ToDoList {
     }
 
     deleteItem(item: ToDoItem) {
-        for (let group of this.groups) {
-            let index = group.items.indexOf(item)
+        for (const group of this.groups) {
+            const index = group.items.indexOf(item)
             if (index > -1) {
                 group.items.splice(index, 1)
                 this.modified = new Date()
@@ -264,9 +264,9 @@ export class ToDoList {
      * objectReset = false (workaround for the aurelia sorting bug)
      */
     sortItems(objectReset = false) {
-        let comp = new ToDoItemComparer(this.sortType)
+        const comp = new ToDoItemComparer(this.sortType)
         if (comp.compare != null) {
-            for (let group of this.groups) {
+            for (const group of this.groups) {
                 //// Workaround for aurelia binding issue on sorting - https://github.com/aurelia/framework/issues/721
                 if (objectReset)
                     group.items = new Array(...group.items.sort((left, right) => comp.compare(left, right, this.showActiveItemsFirst)))
@@ -277,10 +277,10 @@ export class ToDoList {
     }
 
     toPlainObject(): IToDoList {
-        let items = new Array<IToDoItem>()
-        let groups = new Array<IGroup>()
+        const items = new Array<IToDoItem>()
+        const groups = new Array<IGroup>()
 
-        for (let group of this.groups) {
+        for (const group of this.groups) {
             if (group != this.defaultGroup)
                 groups.push({ id: group.id, name: group.name })
 
@@ -297,7 +297,7 @@ export class ToDoList {
             })
         }
 
-        let list: IToDoList = {
+        const list: IToDoList = {
             name: this.name,
             id: this.id,
             items: items,
@@ -318,8 +318,8 @@ export class ToDoList {
 
     share() {
         //// create the content
-        let content = new Array<string>()
-        for (let g of this.groups) {
+        const content = new Array<string>()
+        for (const g of this.groups) {
             if (g.items.length) {
                 if (this.groups.length > 1)
                     content.push('## ' + g.name)
@@ -329,7 +329,7 @@ export class ToDoList {
             }
         }
 
-        let data = {
+        const data = {
             title: this.name + ' | Shopadoo',
             description: 'Shopadoo list',
             content: content.join('\n')
@@ -343,30 +343,30 @@ export class ToDoList {
                 .catch((error) => logger.error('Error on sharing', error))
         }
         else {
-            let email = ''
-            let subject = encodeURIComponent(data.title)
-            let emailBody = encodeURIComponent(data.content)
-            let url = `mailto:${email}?subject=${subject}&body=${emailBody}`
+            const email = ''
+            const subject = encodeURIComponent(data.title)
+            const emailBody = encodeURIComponent(data.content)
+            const url = `mailto:${email}?subject=${subject}&body=${emailBody}`
             UIHelper.loadUrlInIframe(url)
         }
     }
 
     getHashCode(): string {
-        let list = [this.name, this.sortType, this.showActiveItemsFirst, this.id].join(',')
+        const list = [this.name, this.sortType, this.showActiveItemsFirst, this.id].join(',')
         //// hash groups to?
-        let listItems = this.getItems().map(i => [i.id, i.name, i.done].join(',')).join(' ')
+        const listItems = this.getItems().map(i => [i.id, i.name, i.done].join(',')).join(' ')
         return (list + listItems).hashCode()
     }
 
     private static getGroups(list: ToDoList, groups: Array<IGroup>, items: Array<IToDoItem>): Array<Group> {
-        let data = new Array<Group>()
+        const data = new Array<Group>()
 
         list.defaultGroup.items.push(...items.filter(item => !item.groupId).map(i => ToDoItem.map(list, i)))
         data.push(list.defaultGroup)
 
         if (groups) {
-            for (let group of groups) {
-                let g = new Group(group.id, group.name, new Array<ToDoItem>(...items.filter(item => item.groupId == group.id).map(i => ToDoItem.map(list, i))))
+            for (const group of groups) {
+                const g = new Group(group.id, group.name, new Array<ToDoItem>(...items.filter(item => item.groupId == group.id).map(i => ToDoItem.map(list, i))))
                 data.push(g)
             }
         }
