@@ -265,7 +265,7 @@ export class StorageService {
         if (data)
             this.hashTable.set(key, data.hashCode())
 
-        this.logger.info(`Loaded data from LocalStorage (Web) with key '${key}': '${data && data.truncate(100)}'`)
+        this.logger.info(`Loaded data from Storage with key '${key}': '${data && data.truncate(100)}'`)
         return JSON.parse(data) as T
     }
 }
