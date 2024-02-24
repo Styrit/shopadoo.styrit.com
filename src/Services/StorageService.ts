@@ -20,7 +20,9 @@ export class StorageService {
     readonly storageKeySettings = 'appSettings'
     readonly storageKeyHistory = 'itemHistory'
 
-    readonly useIndexedDb = true
+    readonly useDb: 'LS' | 'IDB' | 'OPFS' = 'IDB'
+
+
 
     private onListsLoadedEvent = new system.LiteEvent<void>()
     public get onListsLoaded(): system.ILiteEvent<void> { return this.onListsLoadedEvent }
@@ -213,8 +215,24 @@ export class StorageService {
             return
         }
 
-        if (this.useIndexedDb) {
+        if (this.useDb == 'IDB') {
             await set(key, stringValue)
+        } else if (this.useDb == 'OPFS') {
+            const root = await navigator.storage.getDirectory();
+            const fileHandle = await root.getFileHandle(`${key}.json`, {
+                create: true,
+            });
+
+            // Create a FileSystemSyncAccessHandle on the file.
+            const accessHandle = await fileHandle.createWritable();
+
+            // Write a sentence to the file.
+            let writeBuffer = new TextEncoder().encode(stringValue);
+            await accessHandle.write(writeBuffer);
+
+            // Always close FileSystemSyncAccessHandle if done, so others can open the file again.
+            await accessHandle.close();
+
         } else {
             localStorage.setItem(key, stringValue)
         }
@@ -226,7 +244,17 @@ export class StorageService {
 
     private async loadFromStorage<T>(key: string) {
         let data: string
-        if (this.useIndexedDb) {
+        if (this.useDb == 'IDB') {
+            data = await get(key)
+        }
+        else if (this.useDb == 'OPFS') {
+            const root = await navigator.storage.getDirectory();
+            const fileHandle = await root.getFileHandle(`${key}.json`);
+            const file = await fileHandle.getFile();
+            data = await file.text()
+        }
+        if (!data) {
+            // for the migration to opfs
             data = await get(key)
         }
         if (!data) {
