@@ -17,12 +17,12 @@ import { ModalDialog, IModalDialogModel } from 'Components/modal-dialog'
 export class SettingsViewModel {
     private logger: Logger = LogManager.getLogger('SettingsViewModel')
 
-    private _isLoading: boolean;
+    private _isLoading: boolean
     public get isLoading(): boolean {
-        return this._isLoading;
+        return this._isLoading
     }
     public set isLoading(v: boolean) {
-        this._isLoading = v;
+        this._isLoading = v
     }
 
     private _enableSync: boolean
@@ -98,13 +98,6 @@ export class SettingsViewModel {
         this.settingsService.storageProvider.authService.login(false)
             .then(loggedIn => {
                 this.logger.info('Authenticated: ', loggedIn)
-                if (loggedIn && this.settingsService.storageProvider.id == 'OneDrive') {
-                    //// check 'Styrit Shopping List' backup
-                    this.importService.hasStyritShoppingListData()
-                        .then(hasData => {
-                            this.hasStyritShoppingListData = hasData
-                        })
-                }
             })
             .catch(error => {
                 this.appService.showDialog(this.appService.getDialogModelFromError(error))
@@ -141,7 +134,7 @@ export class SettingsViewModel {
 
     restoreBackup() {
         this.dialogService.open({
-            viewModel: ModalDialog, model: <IModalDialogModel>{
+            viewModel: ModalDialog, model: <IModalDialogModel> {
                 title: 'Override local data?',
                 text: 'You will lose your local lists.',
                 showCancelButton: true,
@@ -207,7 +200,7 @@ export class SettingsViewModel {
 
     importStyritShoppingListBackup() {
         this.dialogService.open({
-            viewModel: ModalDialog, model: <IModalDialogModel>{
+            viewModel: ModalDialog, model: <IModalDialogModel> {
                 title: 'Import data from \'Styrit Shopping List\' backup?',
                 text: 'This will append your previous lists on your existing lists.',
                 showCancelButton: true
@@ -228,7 +221,7 @@ export class SettingsViewModel {
                                 this.logger.error('importStyritShoppingListBackup error: ', error)
 
                                 this.dialogService.open({
-                                    viewModel: ModalDialog, model: <IModalDialogModel>{
+                                    viewModel: ModalDialog, model: <IModalDialogModel> {
                                         title: 'Error on import',
                                         text: 'It seems there is a problem :('
                                     }

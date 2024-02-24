@@ -53,17 +53,6 @@ export class ImportService {
     constructor(private settingsService: SettingsService) {
     }
 
-    async hasStyritShoppingListData(): Promise<boolean> {
-        let url = `https://api.onedrive.com/v1.0/drive/root:/ProgramData/Styrit/StyritShoppingList/data.xml?access_token=${this.settingsService.storageProvider.authService.token}`
-        return new Promise<boolean>((resolve, reject) => {
-            fetch(url).then(d => {
-                resolve(true)
-            }).catch(d => {
-                resolve(false)
-            })
-        })
-    }
-
     getStyritShoppingListData(): Promise<IToDoList[]> {
         let url = `https://api.onedrive.com/v1.0/drive/root:/ProgramData/Styrit/StyritShoppingList/data.xml:/content?access_token=${this.settingsService.storageProvider.authService.token}`
 
@@ -150,13 +139,13 @@ export class ImportService {
         switch (oldSortType) {
             case 3:
                 sortType = SortType.DateCreated
-                break;
+                break
             case 5:
                 sortType = SortType.Manual
-                break;
+                break
             case 6:
                 sortType = SortType.Usage
-                break;
+                break
         }
         return sortType
     }
@@ -167,9 +156,9 @@ function xml2json(xml) {
         let obj = {}
         if (xml.childElementCount > 0) {
             for (let i = 0; i < xml.childNodes.length; i++) {
-                let item = xml.childNodes[i];
+                let item = xml.childNodes[i]
                 if (item.nodeType !== 1)
-                    continue;
+                    continue
 
                 let nodeName = item.nodeName
                 if (typeof (obj[nodeName]) == 'undefined') {
