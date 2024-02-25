@@ -20,7 +20,7 @@ export class StorageService {
     readonly storageKeySettings = 'appSettings'
     readonly storageKeyHistory = 'itemHistory'
 
-    readonly useDb: 'LS' | 'IDB' | 'OPFS' = 'IDB'
+    readonly useDb: 'LS' | 'IDB' | 'OPFS' = navigator.storage.getDirectory ? 'OPFS' : 'IDB'
 
 
 
@@ -249,9 +249,18 @@ export class StorageService {
         }
         else if (this.useDb == 'OPFS') {
             const root = await navigator.storage.getDirectory();
-            const fileHandle = await root.getFileHandle(`${key}.json`);
-            const file = await fileHandle.getFile();
-            data = await file.text()
+            try {
+                const fileHandle = await root.getFileHandle(`${key}.json`);
+                const file = await fileHandle.getFile();
+                data = await file.text()
+            } catch (error) {
+                if (error instanceof DOMException && error.NOT_FOUND_ERR) {
+                    // pass
+                }
+                else {
+                    this.logger.error('Error loading file.', error)
+                }
+            }
         }
         if (!data) {
             // for the migration to opfs
