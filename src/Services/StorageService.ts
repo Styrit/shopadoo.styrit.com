@@ -20,7 +20,7 @@ export class StorageService {
     readonly storageKeySettings = 'appSettings'
     readonly storageKeyHistory = 'itemHistory'
 
-    readonly useDb: 'LS' | 'IDB' | 'OPFS' = navigator.storage.getDirectory ? 'OPFS' : 'IDB'
+    readonly useDb: 'LS' | 'IDB' | 'OPFS' = navigator.storage?.getDirectory ? 'OPFS' : 'IDB'
 
 
 
