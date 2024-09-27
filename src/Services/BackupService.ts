@@ -12,7 +12,6 @@ import { StorageService } from './StorageService'
 @autoinject
 export class BackupService {
     private logger = getLogger('BackupService')
-    private loginDismissed = false
 
     error: unknown
 
@@ -22,7 +21,7 @@ export class BackupService {
         private appService: AppService
     ) {
         this.appService.onVisibilityChanged.on(async visible => {
-            if (!settingsService.settings.autoBackup && !this.loginDismissed)
+            if (!settingsService.settings.autoBackup && !this.appService.loginDismissed)
                 return
             if (!visible || this.error) {
                 if (this.settingsService.settings.lastAutoBackupDate.addDays(4) <= new Date()) {
@@ -31,7 +30,7 @@ export class BackupService {
                     try {
                         loggedIn = await this.settingsService.storageProvider.authService.login(false)
                         if (!loggedIn) {
-                            this.loginDismissed = true
+                            this.appService.loginDismissed = true
                             this.logger.info('Login dismissed.')
                         }
                     }
