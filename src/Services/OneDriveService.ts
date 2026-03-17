@@ -1,11 +1,8 @@
 import { Logger } from 'aurelia-logging'
-import { HttpClient } from 'aurelia-fetch-client'
 
 import * as system from 'System/index'
 import { IDriveService, IDriveItem, IDrivePermission } from 'Interfaces/IDriveService'
 import { IAuthService } from 'Interfaces/IAuthService'
-import { ToDoList, IToDoList } from 'Models/ToDoList'
-import { ToDoItem, IToDoItem } from 'Models/ToDoItem'
 import { IDelta, IOneDriveItem, IOneDriveError, ISharedItem, ISearchResult } from 'Interfaces/IOneDrive'
 import { SettingsService } from 'Services/SettingsService'
 import { DriveItem } from 'Models/DriveItem'
@@ -34,7 +31,7 @@ export class OneDriveService implements IDriveService {
     }
 
     private getRootUrl(apiPath: string, ...params: string[]): string {
-        return this.getBaseUrl(`drive/root:/${this.rootUrl}/` + apiPath, ...params)
+        return this.getBaseUrl(`drive/root:/${this.rootUrl}` + apiPath, ...params)
     }
 
     async getChanges(): Promise<IDriveItem[]> {
@@ -113,7 +110,7 @@ export class OneDriveService implements IDriveService {
     }
 
     downloadFile(fileName: string, format: 'string' | 'json'): Promise<any> {
-        let url = this.getRootUrl(fileName + ':/content')
+        let url = this.getRootUrl(`/${fileName}:/content`)
         return this.settingsService.httpClient.fetch(url)
             .then(response => {
                 if (response.ok) {
@@ -145,7 +142,7 @@ export class OneDriveService implements IDriveService {
         }
 
         console.log('uploadFile ' + fileName)
-        let url = this.getRootUrl(fileName + ':/content')
+        let url = this.getRootUrl(`/${fileName}:/content`)
         return this.settingsService.httpClient.fetch(url, {
             method: 'PUT',
             headers: headers,
@@ -168,7 +165,7 @@ export class OneDriveService implements IDriveService {
     }
 
     deleteFile(fileName: string): Promise<void> {
-        let url = this.getRootUrl(fileName)
+        let url = this.getRootUrl(`/${fileName}`)
         return this.settingsService.httpClient.fetch(url, {
             method: 'DELETE'
         })
@@ -187,7 +184,7 @@ export class OneDriveService implements IDriveService {
     }
 
     downloadFileMetadata(fileName: string): Promise<IOneDriveItem> {
-        let url = this.getRootUrl(fileName)
+        let url = this.getRootUrl(`/${fileName}`)
         return this.settingsService.httpClient.fetch(url)
             .then(response => {
                 if (response.ok) {
@@ -204,7 +201,7 @@ export class OneDriveService implements IDriveService {
     }
 
     getPermissions(fileName: string): Promise<IDrivePermission[]> {
-        let url = this.getRootUrl(fileName + ':/permissions/')
+        let url = this.getRootUrl(`/${fileName}:/permissions/`)
         return this.settingsService.httpClient.fetch(url)
             .then(response => {
                 return response.json() as Promise<IDrivePermission[]>
@@ -217,7 +214,7 @@ export class OneDriveService implements IDriveService {
     }
 
     getShareLink(fileName: string): Promise<string> {
-        let url = this.getRootUrl(fileName + ':/action.createLink')
+        let url = this.getRootUrl(`/${fileName}:/action.createLink`)
         let headers = new Headers()
         headers.append('Content-Type', 'application/json; charset=utf-8')
 
@@ -237,7 +234,7 @@ export class OneDriveService implements IDriveService {
     }
 
     removeShareLink(fileName: string, permissionId: string): Promise<void> {
-        let url = this.getRootUrl(fileName + ':/permissions/' + permissionId)
+        let url = this.getRootUrl(`/${fileName}:/permissions/${permissionId}`)
         return this.settingsService.httpClient.fetch(url, {
             method: 'DELETE'
         })

@@ -1,6 +1,6 @@
 {
   "name": "Shopadoo",
-  "version": "2.2.7",
+  "version": "2.4.2",
   "description": "The easy to-do and shopping list for everyday use.",
   "license": "GNU AGPLv3",
   "author": {
@@ -12,6 +12,7 @@
   },
   "homepage": "https://github.com/Styrit/shopadoo.styrit.com",
   "dependencies": {
+    "aurelia-framework": "^1.4.1",
     "aurelia-animator-css": "^1.0.4",
     "aurelia-bootstrapper": "^2.4.0",
     "aurelia-dialog": "git+https://github.com/gp-slick-coder/dialog#css-button-reset",

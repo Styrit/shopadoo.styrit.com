@@ -86,17 +86,16 @@ export class AuthService implements IAuthService {
                     return Promise.resolve(loggedIn)
                 })
                 .catch(error => {
-                    this.logger.warn('startAuthorization error', error)
-                    this.logout(false)
+                    if (error === false) {
+                        this.logger.info('Authorization progress ended by user.')
+                        return Promise.resolve(false)
+                    }
 
+                    const msg = 'Authorization progress ended with an error.'
+                    this.logger.warn(msg, error)
+                    this.logout(false)
                     this.authorizationProgress = undefined
                     this.loggingIn = false
-                    const msg = 'Authorization progress ended with an error.'
-                    this.logger.info(msg)
-
-                    // throw error - do not work
-                    // return error - do not work
-                    // Note: error = false here...
                     return Promise.reject(msg)
                 })
         }

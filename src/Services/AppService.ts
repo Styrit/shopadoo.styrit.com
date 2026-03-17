@@ -15,6 +15,23 @@ export class AppService {
     private loggedInWarningShowed: boolean
     private offlineWarningShowed: boolean
 
+    private _loginDismissedDate: Date
+    private _loginDismissed = false
+    public get loginDismissed(): boolean {
+        if (this._loginDismissedDate && this._loginDismissedDate.addDays(4) <= new Date()) {
+            this._loginDismissed = false
+            this._loginDismissedDate = undefined
+        }
+        return this._loginDismissed;
+    }
+    public set loginDismissed(v: boolean) {
+        if (v) {
+            this._loginDismissedDate = new Date();
+        }
+        this._loginDismissed = v;
+    }
+
+
     hasRootRequest: boolean
     myListsScrollPosition: number
 

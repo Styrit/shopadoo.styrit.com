@@ -117,7 +117,7 @@ export class App {
 
         document.addEventListener('contextmenu', function (e) {
             // enable contextmenu on text input elements
-            if (!['textarea', 'text'].includes((<HTMLInputElement> (<unknown> e.target)).type)) {
+            if (!['textarea', 'text'].includes((<HTMLInputElement>(<unknown>e.target)).type)) {
                 e.preventDefault()
                 return false
             }
@@ -125,7 +125,8 @@ export class App {
 
         webEventService.init()
         this.initServiceWorker()
-        this.requestPersistentStorage().then(d => console.log(`requestPersistentStorage: ${d}`))
+        if (storageService.useDb != "OPFS")
+            this.requestPersistentStorage().then(d => console.log(`requestPersistentStorage: ${d}`))
     }
 
     private async initServiceWorker() {

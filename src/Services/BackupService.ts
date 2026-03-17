@@ -21,7 +21,7 @@ export class BackupService {
         private appService: AppService
     ) {
         this.appService.onVisibilityChanged.on(async visible => {
-            if (!settingsService.settings.autoBackup)
+            if (!settingsService.settings.autoBackup && !this.appService.loginDismissed)
                 return
             if (!visible || this.error) {
                 if (this.settingsService.settings.lastAutoBackupDate.addDays(4) <= new Date()) {
@@ -29,6 +29,10 @@ export class BackupService {
                     let loggedIn = false
                     try {
                         loggedIn = await this.settingsService.storageProvider.authService.login(false)
+                        if (!loggedIn) {
+                            this.appService.loginDismissed = true
+                            this.logger.info('Login dismissed.')
+                        }
                     }
                     catch (error) {
                         this.logger.info('Error on login.')
